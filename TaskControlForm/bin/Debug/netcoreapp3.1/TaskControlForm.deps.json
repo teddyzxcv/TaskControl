@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "TaskControlForm/1.0.0": {
+        "dependencies": {
+          "TaskControl": "1.0.0"
+        },
+        "runtime": {
+          "TaskControlForm.dll": {}
+        }
+      },
+      "TaskControl/1.0.0": {
+        "runtime": {
+          "TaskControl.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TaskControlForm/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TaskControl/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

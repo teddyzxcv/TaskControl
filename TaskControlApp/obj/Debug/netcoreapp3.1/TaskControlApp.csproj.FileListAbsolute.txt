@@ -1,0 +1,16 @@
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\bin\Debug\netcoreapp3.1\TaskControlApp.exe
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\bin\Debug\netcoreapp3.1\TaskControlApp.deps.json
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\bin\Debug\netcoreapp3.1\TaskControlApp.runtimeconfig.json
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\bin\Debug\netcoreapp3.1\TaskControlApp.runtimeconfig.dev.json
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\bin\Debug\netcoreapp3.1\TaskControlApp.dll
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\bin\Debug\netcoreapp3.1\TaskControlApp.pdb
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\bin\Debug\netcoreapp3.1\TaskControl.dll
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\bin\Debug\netcoreapp3.1\TaskControl.pdb
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\obj\Debug\netcoreapp3.1\TaskControlApp.csprojAssemblyReference.cache
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\obj\Debug\netcoreapp3.1\TaskControlApp.AssemblyInfoInputs.cache
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\obj\Debug\netcoreapp3.1\TaskControlApp.AssemblyInfo.cs
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\obj\Debug\netcoreapp3.1\TaskControlApp.csproj.CoreCompileInputs.cache
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\obj\Debug\netcoreapp3.1\TaskControlApp.csproj.CopyComplete
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\obj\Debug\netcoreapp3.1\TaskControlApp.dll
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\obj\Debug\netcoreapp3.1\TaskControlApp.pdb
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\obj\Debug\netcoreapp3.1\TaskControlApp.genruntimeconfig.cache
