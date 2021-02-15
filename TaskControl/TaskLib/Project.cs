@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TaskControl
 {
@@ -23,11 +24,17 @@ namespace TaskControl
         {
             if (TaskList.Count >= MaxTaskNumber)
                 throw new ArgumentException("Max Task number have been reached");
+            if (TaskList.Select(e => e.Name).Contains(task.Name))
+                throw new ArgumentException("No! No repeat!");
             this.TaskList.Add(task);
         }
         public override string ToString()
         {
             return $"{this.Name} - task number : {this.MaxTaskNumber}";
+        }
+        public Dictionary<Task.Status, List<Task>> GroupByStatus()
+        {
+            return this.TaskList.GroupBy(e => e.GetStatus()).ToDictionary(group => group.Key, group => group.ToList());
         }
 
     }

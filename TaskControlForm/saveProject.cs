@@ -43,6 +43,37 @@ namespace TaskControlForm
     public class saveProject
     {
         static string PathToSaving = "ProjectSave.xml";
+        public static List<User> LoadUserList()
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(PathToSaving);
+            List<User> userList = new List<User>();
+            List<string> userstrlist = doc.SelectSingleNode("TaskControl").SelectSingleNode("UserManageList").SelectNodes("User").Cast<XmlNode>().Select(e => e.InnerText).ToList();
+            if (userstrlist.Count != 0)
+            {
+                foreach (var item in userstrlist)
+                {
+                    User user = new User(item);
+                    userList.Add(user);
+                }
+            }
+            return userList;
+        }
+        public static void saveUserList(List<User> UserList)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(PathToSaving);
+            XmlNode root = doc.SelectSingleNode("TaskControl");
+            root.SelectSingleNode("UserManageList").RemoveAll();
+            XmlNode usernodelist = root.SelectSingleNode("UserManageList");
+            for (int i = 0; i < UserList.Count; i++)
+            {
+                XmlElement newUser = doc.CreateElement("User");
+                newUser.InnerText = UserList.Select(e => e.Name).ToList()[i];
+                usernodelist.AppendChild(newUser);
+            }
+            doc.Save(PathToSaving);
+        }
 
         public static List<Task> LoadTaskList(List<XmlNode> nodes)
         {
@@ -65,6 +96,7 @@ namespace TaskControlForm
                         task = new BugTask(nodes[i].Attributes["Name"].Value);
                         break;
                 }
+                task.SetStatus((Task.Status)Enum.Parse(typeof(Task.Status), nodes[i].Attributes["CurrentStatus"].Value));
                 task.CreateTime = DateTime.Parse(nodes[i].Attributes["CreateTime"].Value);
                 List<string> usernames = nodes[i].SelectSingleNode("UserList").SelectNodes("User").Cast<XmlNode>().Select(e => e.Attributes["Name"].Value).ToList();
                 List<User> UserList = new List<User>();
@@ -83,7 +115,10 @@ namespace TaskControlForm
         public static void SaveProjectList(List<Project> prjList)
         {
             XmlDocument doc = new XmlDocument();
-            XmlNode root = doc.CreateElement("ProjectList");
+            doc.Load(PathToSaving);
+            XmlNode root = doc.SelectSingleNode("TaskControl");
+            root.SelectSingleNode("ProjectList").RemoveAll();
+            XmlNode prjnodelist = root.SelectSingleNode("ProjectList");
             for (int i = 0; i < prjList.Count; i++)
             {
                 XmlElement newProject = doc.CreateElement("Project");
@@ -96,9 +131,8 @@ namespace TaskControlForm
                 XmlElement newTaskList = doc.CreateElement("TaskList");
                 SaveTask(ref newTaskList, prjList[i].TaskList, doc);
                 newProject.AppendChild(newTaskList);
-                root.AppendChild(newProject);
+                prjnodelist.AppendChild(newProject);
             }
-            doc.AppendChild(root);
             doc.Save(PathToSaving);
         }
         private static void SaveTask(ref XmlElement node, List<Task> tasklist, XmlDocument doc)
@@ -110,20 +144,20 @@ namespace TaskControlForm
                 XmlAttribute taskCreateTime = doc.CreateAttribute("CreateTime");
                 XmlAttribute taskType = doc.CreateAttribute("Type");
                 XmlAttribute taskStatus = doc.CreateAttribute("CurrentStatus");
-                newTask.SetAttributeNode(taskName);
-                newTask.SetAttributeNode(taskCreateTime);
-                newTask.SetAttributeNode(taskType);
-                newTask.SetAttributeNode(taskStatus);
                 taskCreateTime.Value = tasklist[i].CreateTime.ToString();
                 taskName.Value = tasklist[i].Name;
                 taskType.Value = tasklist[i].GetType().Name;
                 taskStatus.Value = tasklist[i].GetStatus().ToString();
+                newTask.SetAttributeNode(taskName);
+                newTask.SetAttributeNode(taskCreateTime);
+                newTask.SetAttributeNode(taskType);
+                newTask.SetAttributeNode(taskStatus);
                 XmlElement newUserList = doc.CreateElement("UserList");
                 for (int j = 0; j < tasklist[i].UserList.Count; j++)
                 {
                     XmlElement user = doc.CreateElement("User");
                     XmlAttribute username = doc.CreateAttribute("Name");
-                    username.Value = tasklist[i].UserList[j].ToString();
+                    username.Value = tasklist[i].UserList[j].Name;
                     user.SetAttributeNode(username);
                     newUserList.AppendChild(user);
                 }

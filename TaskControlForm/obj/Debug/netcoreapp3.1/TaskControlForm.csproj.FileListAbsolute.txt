@@ -18,3 +18,6 @@ C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlForm\obj\Debug\netcoreapp
 C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlForm\obj\Debug\netcoreapp3.1\TaskControlForm.genruntimeconfig.cache
 C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlForm\obj\Debug\netcoreapp3.1\TaskControlForm.CreatePrjForm.resources
 C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlForm\obj\Debug\netcoreapp3.1\TaskControlForm.CreateTaskForm.resources
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlForm\obj\Debug\netcoreapp3.1\TaskControlForm.UserManageForm.resources
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlForm\obj\Debug\netcoreapp3.1\TaskControlForm.RenameForm.resources
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlForm\obj\Debug\netcoreapp3.1\TaskControlForm.TaskManageForm.resources

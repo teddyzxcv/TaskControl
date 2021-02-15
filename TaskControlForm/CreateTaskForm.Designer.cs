@@ -113,6 +113,7 @@ namespace TaskControlForm
             this.MinimumSize = new System.Drawing.Size(300, 200);
             this.Name = "CreateTaskForm";
             this.Text = "Create Task";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CreateTaskForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

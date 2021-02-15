@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace TaskControl
 {
@@ -43,6 +44,14 @@ namespace TaskControl
         {
             if (task.GetType() == typeof(BugTask))
                 throw new ArgumentException("Bug only can describe the project.");
+            if (this.GetType() == typeof(StoryTask))
+                throw new ArgumentException("Can't add task to story task.");
+            if (this.GetType() == typeof(TaskTask))
+                throw new ArgumentException("Can't add task to task task.");
+            if (this.GetType() == typeof(EpicTask) && (task.GetType() != typeof(StoryTask) && task.GetType() != typeof(TaskTask)))
+                throw new ArgumentException("Can't add any task beside story and task to epic task.");
+            if (SubTaskList.Select(e => e.Name).Contains(task.Name))
+                throw new ArgumentException("No! No repeat!");
             SubTaskList.Add(task);
         }
         public void DeleteTask(Task task)
@@ -70,6 +79,10 @@ namespace TaskControl
         public override string ToString()
         {
             return $"Task:{this.Name}, create time: {this.CreateTime.ToString()}, users:{String.Join(',', this.UserList)}, status: {this.CurrentStatus}";
+        }
+        public Dictionary<Task.Status, List<Task>> GroupByStatus()
+        {
+            return this.SubTaskList.GroupBy(e => e.GetStatus()).ToDictionary(group => group.Key, group => group.ToList());
         }
 
 
