@@ -26,6 +26,7 @@ namespace TaskControl
                 throw new ArgumentException("Max Task number have been reached");
             if (TaskList.Select(e => e.Name).Contains(task.Name))
                 throw new ArgumentException("No! No repeat!");
+            task.CreateTime = DateTime.Now;
             this.TaskList.Add(task);
         }
         public override string ToString()

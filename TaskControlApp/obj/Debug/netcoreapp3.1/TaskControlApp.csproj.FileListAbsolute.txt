@@ -14,3 +14,4 @@ C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\obj\Debug\netcoreapp3
 C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\obj\Debug\netcoreapp3.1\TaskControlApp.dll
 C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\obj\Debug\netcoreapp3.1\TaskControlApp.pdb
 C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\obj\Debug\netcoreapp3.1\TaskControlApp.genruntimeconfig.cache
+C:\Users\pan26\Documents\GitHub\TaskControl\TaskControlApp\bin\Debug\netcoreapp3.1\ConsoleMenu.dll
