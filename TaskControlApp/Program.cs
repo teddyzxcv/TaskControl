@@ -25,10 +25,6 @@ namespace TaskControlApp
             saveProject.saveUserList(UsersList);
 
         }
-        static string ViewUsers()
-        {
-            return String.Join('\n', UsersList);
-        }
         static void CreateProject(string name, int mtn)
         {
             if (name == "")
@@ -38,22 +34,11 @@ namespace TaskControlApp
             Project prj = new Project(name, mtn);
             ProjectList.Add(prj);
         }
-        static void ChangeProjectName(Project prj, string name)
-        {
-            prj.Name = name;
-        }
-        static string ViewProjects()
-        {
-            List<string> stringprjlist = ProjectList.Select(e => e.ToString()).ToList();
-            return String.Join('\n', stringprjlist);
-        }
+
         static void DeleteProject(string name)
         {
             ProjectList.Remove(ProjectList.Find(e => e.Name == name));
         }
-
-
-
 
         static void Main(string[] args)
         {
@@ -71,8 +56,6 @@ namespace TaskControlApp
                     Console.WriteLine(e.Message + "Press any button to try again!");
                     Console.ReadKey();
                 }
-
-
         }
         static void RefreshMainMenu(ref ConsoleMenu m)
         {
@@ -87,6 +70,7 @@ namespace TaskControlApp
             MainMenu.Add("Help", () =>
             {
                 Console.WriteLine("Press Enter to get in, up and down arrow to choose");
+                Console.WriteLine("Type of task: BugTask, TaskTask, EpicTask and StoryTask.");
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             });
@@ -103,51 +87,6 @@ namespace TaskControlApp
             for (int i = 0; i < ProjectList.Count; i++)
             {
                 Project prj = ProjectList[i];
-                /*string prjname = ProjectList[i].Name;
-                var ProjectMenu = new ConsoleMenu();
-                ProjectMenu.Configure(config =>
-                {
-                    config.WriteHeaderAction = () =>
-                {
-                    Console.WriteLine("Project: " + prj.Name + "  Task number: " + prj.TaskList.Count);
-                };
-                });
-
-                for (int j = 0; j < ProjectList[i].TaskList.Count; j++)
-                {
-                    Task task = ProjectList[i].TaskList[j];
-                    ProjectMenu.Add("Task: " + ProjectList[i].TaskList[j].Name, () =>
-                    {
-                        ChooseUserMenu(ProjectMenu, task, prj).Show();
-                    });
-                }
-
-                ProjectMenu.Add("Create new Task", () =>
-                {
-                    CreateTaskMenu(prj);
-                    RefreshMainMenu(ref MainMenu);
-                    Console.WriteLine("New Task created in project " + prj.Name + ". Press to continue...");
-                    Console.ReadKey();
-                    MainMenu.Show();
-                });
-                ProjectMenu.Add("Rename this project", () =>
-                {
-                    RenameProjectMenu(prj);
-                    RefreshMainMenu(ref MainMenu);
-                });
-                ProjectMenu.Add("Delete this project", () =>
-                {
-                    DeleteProject(prjname);
-                    saveProject.SaveProjectList(ProjectList);
-                    RefreshMainMenu(ref MainMenu);
-                    MainMenu.Show();
-                });
-                ProjectMenu.Add("Back", () =>
-                {
-                    RefreshMainMenu(ref MainMenu);
-                    MainMenu.Show();
-                });
-                MainMenu.Add("Project: " + ProjectList[i].Name, ProjectMenu.Show);*/
                 RefreshProjectMenu(MainMenu, prj);
             }
             m = MainMenu;
@@ -163,15 +102,39 @@ namespace TaskControlApp
                 Console.WriteLine("Project: " + prj.Name + "  Task number: " + prj.TaskList.Count);
             };
             });
-
+            ProjectMenu.Add("Default:", () => { });
             for (int j = 0; j < prj.TaskList.Count; j++)
             {
                 Task task = prj.TaskList[j];
-                ProjectMenu.Add("Task: " + prj.TaskList[j].Name, () =>
-                {
-                    TaskMenu(ProjectMenu, task, prj, MainMenu, false, new Task()).Show();
-                });
+                if (task.GetStatus() == Task.Status.Default)
+                    ProjectMenu.Add("     \\---> Task: " + prj.TaskList[j].Name, () =>
+                    {
+                        TaskMenu(ProjectMenu, task, prj, MainMenu, false, new Task()).Show();
+                    });
             }
+            ProjectMenu.Add("AtWork:", () => { });
+            for (int j = 0; j < prj.TaskList.Count; j++)
+            {
+                Task task = prj.TaskList[j];
+                if (task.GetStatus() == Task.Status.AtWork)
+                    ProjectMenu.Add("     \\---> Task: " + prj.TaskList[j].Name, () =>
+                    {
+                        TaskMenu(ProjectMenu, task, prj, MainMenu, false, new Task()).Show();
+                    });
+            }
+
+            ProjectMenu.Add("EndWork:", () => { });
+            for (int j = 0; j < prj.TaskList.Count; j++)
+            {
+                Task task = prj.TaskList[j];
+                if (task.GetStatus() == Task.Status.EndWork)
+                    ProjectMenu.Add("     \\---> Task: " + prj.TaskList[j].Name, () =>
+                    {
+                        TaskMenu(ProjectMenu, task, prj, MainMenu, false, new Task()).Show();
+                    });
+            }
+
+
 
             ProjectMenu.Add("Create new Task", () =>
             {
@@ -372,13 +335,35 @@ namespace TaskControlApp
                 CreateTaskMenu(task);
                 RefreshSubTaskMenu(task, mm, prj, chum).Show();
             });
+            um.Add("Default:", () => { });
             for (int i = 0; i < task.SubTaskList.Count; i++)
             {
                 Task subtask = task.SubTaskList[i];
-                um.Add(subtask.Name, () =>
-                {
-                    TaskMenu(chum, subtask, prj, mm, true, task).Show();
-                });
+                if (subtask.GetStatus() == Task.Status.Default)
+                    um.Add("     \\--->Task: " + subtask.Name, () =>
+                    {
+                        TaskMenu(chum, subtask, prj, mm, true, task).Show();
+                    });
+            }
+            um.Add("AtWork:", () => { });
+            for (int i = 0; i < task.SubTaskList.Count; i++)
+            {
+                Task subtask = task.SubTaskList[i];
+                if (subtask.GetStatus() == Task.Status.AtWork)
+                    um.Add("     \\--->Task: " + subtask.Name, () =>
+                    {
+                        TaskMenu(chum, subtask, prj, mm, true, task).Show();
+                    });
+            }
+            um.Add("EndWork:", () => { });
+            for (int i = 0; i < task.SubTaskList.Count; i++)
+            {
+                Task subtask = task.SubTaskList[i];
+                if (subtask.GetStatus() == Task.Status.EndWork)
+                    um.Add("     \\--->Task: " + subtask.Name, () =>
+                    {
+                        TaskMenu(chum, subtask, prj, mm, true, task).Show();
+                    });
             }
             um.Add("Back", () =>
             {
@@ -476,18 +461,24 @@ namespace TaskControlApp
                 {
                     task.SetStatus(Task.Status.Default);
                     saveProject.SaveProjectList(ProjectList);
+                    if (!IsSubtask)
+                        chum = RefreshProjectMenu(mm, prj);
                     chum.Show();
                 });
                 um.Add("At work", () =>
                 {
                     task.SetStatus(Task.Status.AtWork);
                     saveProject.SaveProjectList(ProjectList);
+                    if (!IsSubtask)
+                        chum = RefreshProjectMenu(mm, prj);
                     chum.Show();
                 });
                 um.Add("End work", () =>
                 {
                     task.SetStatus(Task.Status.EndWork);
                     saveProject.SaveProjectList(ProjectList);
+                    if (!IsSubtask)
+                        chum = RefreshProjectMenu(mm, prj);
                     chum.Show();
                 });
                 um.Add("Back", () =>

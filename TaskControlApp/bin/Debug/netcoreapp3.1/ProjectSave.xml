@@ -12,20 +12,20 @@
           <UserList />
           <SubTaskList />
         </Task>
-        <Task Name="New2" CreateTime="2021/2/21 16:03:21" Type="TaskTask" CurrentStatus="Default">
+        <Task Name="New2" CreateTime="2021/2/21 16:03:21" Type="TaskTask" CurrentStatus="EndWork">
           <UserList />
           <SubTaskList />
         </Task>
         <Task Name="Epic" CreateTime="2021/2/21 16:15:08" Type="EpicTask" CurrentStatus="Default">
           <UserList />
           <SubTaskList>
-            <Task Name="StoryTask" CreateTime="2021/2/21 16:15:23" Type="StoryTask" CurrentStatus="Default">
+            <Task Name="StoryTask" CreateTime="2021/2/21 16:15:23" Type="StoryTask" CurrentStatus="AtWork">
               <UserList>
                 <User Name="ann" />
               </UserList>
               <SubTaskList />
             </Task>
-            <Task Name="Task" CreateTime="2021/2/21 16:17:23" Type="TaskTask" CurrentStatus="Default">
+            <Task Name="Task" CreateTime="2021/2/21 16:17:23" Type="TaskTask" CurrentStatus="EndWork">
               <UserList />
               <SubTaskList />
             </Task>
@@ -34,7 +34,12 @@
       </TaskList>
     </Project>
     <Project Name="prj" MaxTaskNumber="11">
-      <TaskList />
+      <TaskList>
+        <Task Name="Task" CreateTime="2021/2/21 16:21:11" Type="TaskTask" CurrentStatus="EndWork">
+          <UserList />
+          <SubTaskList />
+        </Task>
+      </TaskList>
     </Project>
   </ProjectList>
   <UserManageList>
