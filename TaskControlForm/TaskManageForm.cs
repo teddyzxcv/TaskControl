@@ -12,6 +12,10 @@ namespace TaskControlForm
     public partial class TaskManageForm : Form
     {
         public Task SelectedTask = new Task();
+        /// <summary>
+        /// Manage task.
+        /// </summary>
+        /// <param name="selectedtask"></param>
         public TaskManageForm(Task selectedtask)
         {
             InitializeComponent();
@@ -37,7 +41,11 @@ namespace TaskControlForm
             }
 
         }
-
+        /// <summary>
+        /// Save the change.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             if (this.radioButton1.Checked)

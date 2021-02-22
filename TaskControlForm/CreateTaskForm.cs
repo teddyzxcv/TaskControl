@@ -16,7 +16,11 @@ namespace TaskControlForm
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Save new task.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             if (this.comboBox1.Text == null || this.textBox1.Text.Length == 0)

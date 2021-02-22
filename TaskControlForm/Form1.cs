@@ -15,52 +15,16 @@ namespace TaskControlForm
         public static List<User> UsersList = new List<User>();
         static List<Project> ProjectList = saveProject.LoadFileInfo();
 
-        static void CreateTask(Task mothertask, Task task)
-        {
-            mothertask.AddTask(task);
-        }
-        static void CreateTask(Project project, Task task)
-        {
-            project.AddTask(task);
-        }
-        static void CreateUser(string name)
-        {
-            User user = new User(name);
-            UsersList.Add(user);
-        }
-        static void DeleteUser(User user)
-        {
-            UsersList.Remove(user);
-        }
-        static string ViewUsers()
-        {
-            return String.Join('\n', UsersList);
-        }
+        /// <summary>
+        /// Create project.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="mtn"></param>
         static void CreateProject(string name, int mtn)
         {
             Project prj = new Project(name, mtn);
             ProjectList.Add(prj);
         }
-        static void ChangeProjectName(Project prj, string name)
-        {
-            prj.Name = name;
-        }
-        static string ViewProjects()
-        {
-            List<string> stringprjlist = ProjectList.Select(e => e.ToString()).ToList();
-            return String.Join('\n', stringprjlist);
-        }
-        static void DeleteProject(string name)
-        {
-            ProjectList.Remove(ProjectList.Find(e => e.Name == name));
-        }
-
-        static string ViewTaskList(string name)
-        {
-            Project prj = ProjectList.Find(e => e.Name == name);
-            return String.Join('\n', prj.TaskList.Select(e => e.ToString()));
-        }
-
 
         public Form1()
         {
@@ -68,6 +32,9 @@ namespace TaskControlForm
             RefreshTree();
             this.treeView1.ContextMenuStrip = this.contextMenuStrip1;
         }
+        /// <summary>
+        /// Refresh the tree view.
+        /// </summary>
         private void RefreshTree()
         {
             try
@@ -92,6 +59,11 @@ namespace TaskControlForm
             }
 
         }
+        /// <summary>
+        /// Refresh task info.
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <param name="tasklist"></param>
         private void RefreshTask(TreeNodeCollection nodes, List<Task> tasklist)
         {
             for (int i = 0; i < tasklist.Count; i++)
@@ -103,7 +75,11 @@ namespace TaskControlForm
             }
         }
 
-
+        /// <summary>
+        /// Create new project.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void newPrjStripMenuItem1_Click(object sender, EventArgs e)
         {
             try
@@ -124,7 +100,9 @@ namespace TaskControlForm
             }
 
         }
-
+        /// <summary>
+        /// Get listbox refreshed after change seleted in tree view.
+        /// </summary>
 
         private void listboxrefresh()
         {
@@ -182,12 +160,20 @@ namespace TaskControlForm
             }
         }
 
-
+        /// <summary>
+        /// Tree view refresh.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             listboxrefresh();
         }
-
+        /// <summary>
+        /// Create new task.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void newTaskStripMenuItem1_Click(object sender, EventArgs e)
         {
             try
@@ -239,7 +225,11 @@ namespace TaskControlForm
             }
 
         }
-
+        /// <summary>
+        /// User strip.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void userStripMenuItem1_Click(object sender, EventArgs e)
         {
             try
@@ -252,7 +242,11 @@ namespace TaskControlForm
                 MessageBox.Show(er.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        /// <summary>
+        /// Delete button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void deleteStripMenuItem1_Click(object sender, EventArgs e)
         {
             try
@@ -285,7 +279,11 @@ namespace TaskControlForm
 
 
         }
-
+        /// <summary>
+        /// Change project/task name.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void changeNameStripMenuItem1_Click(object sender, EventArgs e)
         {
             try
@@ -312,7 +310,11 @@ namespace TaskControlForm
                 MessageBox.Show(er.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        /// <summary>
+        /// Task management.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void taskmanageStripMenuItem1_Click(object sender, EventArgs e)
         {
             try

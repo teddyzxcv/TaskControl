@@ -8,8 +8,16 @@ using System.Xml;
 using TaskControl;
 namespace TaskControlForm
 {
+    /// <summary>
+    /// Class for check tree view.<see langword="abstract"/>
+    /// </summary>
     public static class TreeViewExtensions
     {
+        /// <summary>
+        /// Save all tree expansion states.
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <returns></returns>
         public static List<string> GetExpansionState(this TreeNodeCollection nodes)
         {
             return nodes.Descendants()
@@ -17,7 +25,11 @@ namespace TaskControlForm
                         .Select(n => n.FullPath)
                         .ToList();
         }
-
+        /// <summary>
+        /// Set tree expansion state.
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <param name="savedExpansionState"></param>
         public static void SetExpansionState(this TreeNodeCollection nodes, List<string> savedExpansionState)
         {
             foreach (var node in nodes.Descendants()
@@ -42,7 +54,14 @@ namespace TaskControlForm
     }
     public class saveProject
     {
+        /// <summary>
+        /// Path to save file xml.
+        /// </summary>
         static string PathToSaving = "ProjectSave.xml";
+        /// <summary>
+        /// Load user list.
+        /// </summary>
+        /// <returns></returns>
         public static List<User> LoadUserList()
         {
             XmlDocument doc = new XmlDocument();
@@ -59,6 +78,10 @@ namespace TaskControlForm
             }
             return userList;
         }
+        /// <summary>
+        /// Save user list.
+        /// </summary>
+        /// <param name="UserList"></param>
         public static void saveUserList(List<User> UserList)
         {
             XmlDocument doc = new XmlDocument();
@@ -74,7 +97,11 @@ namespace TaskControlForm
             }
             doc.Save(PathToSaving);
         }
-
+        /// <summary>
+        /// Load task list.
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <returns></returns>
         public static List<Task> LoadTaskList(List<XmlNode> nodes)
         {
             List<Task> Output = new List<Task>();
@@ -111,6 +138,10 @@ namespace TaskControlForm
             }
             return Output;
         }
+        /// <summary>
+        /// Save project list.
+        /// </summary>
+        /// <param name="prjList"></param>
 
         public static void SaveProjectList(List<Project> prjList)
         {
@@ -135,6 +166,12 @@ namespace TaskControlForm
             }
             doc.Save(PathToSaving);
         }
+        /// <summary>
+        /// Save task.
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="tasklist"></param>
+        /// <param name="doc"></param>
         private static void SaveTask(ref XmlElement node, List<Task> tasklist, XmlDocument doc)
         {
             for (int i = 0; i < tasklist.Count; i++)
@@ -169,7 +206,10 @@ namespace TaskControlForm
 
             }
         }
-
+        /// <summary>
+        /// Load file info.
+        /// </summary>
+        /// <returns></returns>
 
         public static List<Project> LoadFileInfo()
         {

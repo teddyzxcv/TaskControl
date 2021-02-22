@@ -9,7 +9,14 @@ namespace TaskControlApp
 
     public class saveProject
     {
+        /// <summary>
+        /// Path to saving xml.
+        /// </summary>
         static string PathToSaving = "ProjectSave.xml";
+        /// <summary>
+        /// Load user list.
+        /// </summary>
+        /// <returns></returns>
         public static List<User> LoadUserList()
         {
             XmlDocument doc = new XmlDocument();
@@ -26,6 +33,10 @@ namespace TaskControlApp
             }
             return userList;
         }
+        /// <summary>
+        /// Save user list.
+        /// </summary>
+        /// <param name="UserList"></param>
         public static void saveUserList(List<User> UserList)
         {
             XmlDocument doc = new XmlDocument();
@@ -41,7 +52,11 @@ namespace TaskControlApp
             }
             doc.Save(PathToSaving);
         }
-
+        /// <summary>
+        /// Load task list.
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <returns></returns>
         public static List<Task> LoadTaskList(List<XmlNode> nodes)
         {
             List<Task> Output = new List<Task>();
@@ -78,7 +93,10 @@ namespace TaskControlApp
             }
             return Output;
         }
-
+        /// <summary>
+        /// Save project list.
+        /// </summary>
+        /// <param name="prjList"></param>
         public static void SaveProjectList(List<Project> prjList)
         {
             XmlDocument doc = new XmlDocument();
@@ -102,6 +120,12 @@ namespace TaskControlApp
             }
             doc.Save(PathToSaving);
         }
+        /// <summary>
+        /// Save task.
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="tasklist"></param>
+        /// <param name="doc"></param>
         private static void SaveTask(ref XmlElement node, List<Task> tasklist, XmlDocument doc)
         {
             for (int i = 0; i < tasklist.Count; i++)
@@ -137,7 +161,10 @@ namespace TaskControlApp
             }
         }
 
-
+        /// <summary>
+        /// Load propject list.
+        /// </summary>
+        /// <returns></returns>
         public static List<Project> LoadFileInfo()
         {
             XmlDocument doc = new XmlDocument();

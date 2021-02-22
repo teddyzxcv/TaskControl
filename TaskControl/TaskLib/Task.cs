@@ -14,7 +14,10 @@ namespace TaskControl
         public List<User> UserList { get; set; }
 
         Status CurrentStatus = Status.Default;
-
+        /// <summary>
+        /// Initialize.
+        /// </summary>
+        /// <param name="name"></param>
         public Task(string name)
         {
             Name = name;
@@ -26,20 +29,35 @@ namespace TaskControl
         {
 
         }
+        /// <summary>
+        /// Get status of task.
+        /// </summary>
+        /// <returns></returns>
         public Status GetStatus()
         {
             return CurrentStatus;
         }
+        /// <summary>
+        /// Set status.
+        /// </summary>
+        /// <param name="status"></param>
         public void SetStatus(Status status)
         {
             CurrentStatus = status;
         }
+        /// <summary>
+        /// Status enum.
+        /// </summary>
         public enum Status
         {
             Default,
             AtWork,
             EndWork
         }
+        /// <summary>
+        /// Add task under certain condition.
+        /// </summary>
+        /// <param name="task"></param>
         public void AddTask(Task task)
         {
             if (task.GetType() == typeof(BugTask))
@@ -54,10 +72,18 @@ namespace TaskControl
                 throw new ArgumentException("No! No repeat!");
             SubTaskList.Add(task);
         }
+        /// <summary>
+        /// Delete sub task.
+        /// </summary>
+        /// <param name="task"></param>
         public void DeleteTask(Task task)
         {
             SubTaskList.Remove(task);
         }
+        /// <summary>
+        /// Add user unde ceratin conditions.
+        /// </summary>
+        /// <param name="user"></param>
         public void AddUser(User user)
         {
             if (this.GetType() == typeof(TaskTask) || this.GetType() == typeof(BugTask))
@@ -72,6 +98,10 @@ namespace TaskControl
                 UserList.Add(user);
             }
         }
+        /// <summary>
+        /// Delete user.
+        /// </summary>
+        /// <param name="user"></param>
         public void DeleteUser(User user)
         {
             UserList.Remove(user);
@@ -80,6 +110,10 @@ namespace TaskControl
         {
             return $"Task:{this.Name}, create time: {this.CreateTime.ToString()}, users:{String.Join(',', this.UserList)}, status: {this.CurrentStatus}";
         }
+        /// <summary>
+        /// Group by status.
+        /// </summary>
+        /// <returns></returns>
         public Dictionary<Task.Status, List<Task>> GroupByStatus()
         {
             return this.SubTaskList.GroupBy(e => e.GetStatus()).ToDictionary(group => group.Key, group => group.ToList());

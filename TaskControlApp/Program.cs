@@ -10,7 +10,10 @@ namespace TaskControlApp
     {
         static List<User> UsersList = new List<User>();
         static List<Project> ProjectList = new List<Project>();
-
+        /// <summary>
+        /// Create user.
+        /// </summary>
+        /// <param name="name"></param>
         static void CreateUser(string name)
         {
             User user = new User(name);
@@ -19,12 +22,20 @@ namespace TaskControlApp
             UsersList.Add(user);
             saveProject.saveUserList(UsersList);
         }
+        /// <summary>
+        /// Delete user.
+        /// </summary>
+        /// <param name="user"></param>
         static void DeleteUser(User user)
         {
             UsersList.Remove(user);
             saveProject.saveUserList(UsersList);
-
         }
+        /// <summary>
+        /// Create prpject.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="mtn"></param>
         static void CreateProject(string name, int mtn)
         {
             if (name == "")
@@ -34,12 +45,19 @@ namespace TaskControlApp
             Project prj = new Project(name, mtn);
             ProjectList.Add(prj);
         }
+        /// <summary>
+        /// Delete porject.
+        /// </summary>
+        /// <param name="name"></param>
 
         static void DeleteProject(string name)
         {
             ProjectList.Remove(ProjectList.Find(e => e.Name == name));
         }
-
+        /// <summary>
+        /// Main.
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             while (true)
@@ -57,6 +75,10 @@ namespace TaskControlApp
                     Console.ReadKey();
                 }
         }
+        /// <summary>
+        /// Get main menu refreshed.
+        /// </summary>
+        /// <param name="m"></param>
         static void RefreshMainMenu(ref ConsoleMenu m)
         {
             var MainMenu = new ConsoleMenu();
@@ -67,6 +89,7 @@ namespace TaskControlApp
                     Console.WriteLine("Main Menu: view project list and create new project.");
                 };
             });
+            // Help.
             MainMenu.Add("Help", () =>
             {
                 Console.WriteLine("Press Enter to get in, up and down arrow to choose");
@@ -74,16 +97,19 @@ namespace TaskControlApp
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
             });
+            // User manage.
             MainMenu.Add("User Manage", () =>
             {
                 UserManageMenu().Show();
             });
+            // Create new project.
             MainMenu.Add("Create new project", () =>
             {
                 CreatePorjectMenu();
                 RefreshMainMenu(ref MainMenu);
                 MainMenu.Show();
             });
+            // Get project list.
             for (int i = 0; i < ProjectList.Count; i++)
             {
                 Project prj = ProjectList[i];
@@ -91,10 +117,17 @@ namespace TaskControlApp
             }
             m = MainMenu;
         }
+        /// <summary>
+        /// Refresh project menu.
+        /// </summary>
+        /// <param name="MainMenu"></param>
+        /// <param name="prj"></param>
+        /// <returns></returns>
         static ConsoleMenu RefreshProjectMenu(ConsoleMenu MainMenu, Project prj)
         {
             string prjname = prj.Name;
             var ProjectMenu = new ConsoleMenu();
+            // Get project name.
             ProjectMenu.Configure(config =>
             {
                 config.WriteHeaderAction = () =>
@@ -102,6 +135,7 @@ namespace TaskControlApp
                 Console.WriteLine("Project: " + prj.Name + "  Task number: " + prj.TaskList.Count);
             };
             });
+            // All task in default.
             ProjectMenu.Add("Default:", () => { });
             for (int j = 0; j < prj.TaskList.Count; j++)
             {
@@ -112,6 +146,7 @@ namespace TaskControlApp
                         TaskMenu(ProjectMenu, task, prj, MainMenu, false, new Task()).Show();
                     });
             }
+            // All task at work.
             ProjectMenu.Add("AtWork:", () => { });
             for (int j = 0; j < prj.TaskList.Count; j++)
             {
@@ -122,7 +157,7 @@ namespace TaskControlApp
                         TaskMenu(ProjectMenu, task, prj, MainMenu, false, new Task()).Show();
                     });
             }
-
+            // All task end work.
             ProjectMenu.Add("EndWork:", () => { });
             for (int j = 0; j < prj.TaskList.Count; j++)
             {
@@ -134,7 +169,7 @@ namespace TaskControlApp
                     });
             }
 
-
+            // Create new task.
 
             ProjectMenu.Add("Create new Task", () =>
             {
@@ -142,11 +177,13 @@ namespace TaskControlApp
                 RefreshMainMenu(ref MainMenu);
                 RefreshProjectMenu(MainMenu, prj).Show();
             });
+            // Rename project.
             ProjectMenu.Add("Rename this project", () =>
             {
                 RenameProjectMenu(prj);
                 RefreshMainMenu(ref MainMenu);
             });
+            // Delete project.
             ProjectMenu.Add("Delete this project", () =>
             {
                 DeleteProject(prjname);
@@ -154,6 +191,7 @@ namespace TaskControlApp
                 RefreshMainMenu(ref MainMenu);
                 MainMenu.Show();
             });
+            // Go back.
             ProjectMenu.Add("Back", () =>
             {
                 RefreshMainMenu(ref MainMenu);
@@ -162,44 +200,59 @@ namespace TaskControlApp
             MainMenu.Add("Project: " + prj.Name, ProjectMenu.Show);
             return ProjectMenu;
         }
+        /// <summary>
+        /// Create Task menu for project.
+        /// </summary>
+        /// <param name="prj"></param>
         static void CreateTaskMenu(Project prj)
         {
             while (true)
-                try
-                {
-                    string taskName = "";
-                    string type = "";
-                    Console.WriteLine("Input task name:");
-                    taskName = Console.ReadLine();
-                    Console.WriteLine("Input task type:");
-                    type = Console.ReadLine();
-                    Task task = new Task(taskName);
-                    switch (type)
+                if (prj.MaxTaskNumber < prj.TaskList.Count)
+                    try
                     {
-                        case ("TaskTask"):
-                            task = new TaskTask(taskName);
-                            break;
-                        case ("EpicTask"):
-                            task = new EpicTask(taskName);
-                            break;
-                        case ("StoryTask"):
-                            task = new StoryTask(taskName);
-                            break;
-                        case ("BugTask"):
-                            task = new BugTask(taskName);
-                            break;
-                        default:
-                            throw new ArgumentException("Cant find this type!");
+                        string taskName = "";
+                        string type = "";
+                        Console.WriteLine("Input task name:");
+                        taskName = Console.ReadLine();
+                        Console.WriteLine("Input task type:");
+                        type = Console.ReadLine();
+                        Task task = new Task(taskName);
+                        switch (type)
+                        {
+                            case ("TaskTask"):
+                                task = new TaskTask(taskName);
+                                break;
+                            case ("EpicTask"):
+                                task = new EpicTask(taskName);
+                                break;
+                            case ("StoryTask"):
+                                task = new StoryTask(taskName);
+                                break;
+                            case ("BugTask"):
+                                task = new BugTask(taskName);
+                                break;
+                            default:
+                                throw new ArgumentException("Cant find this type!");
+                        }
+                        prj.AddTask(task);
+                        saveProject.SaveProjectList(ProjectList);
+                        break;
                     }
-                    prj.AddTask(task);
-                    saveProject.SaveProjectList(ProjectList);
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error! : " + e.Message + " Plz try again...");
+                    }
+                else
+                {
+                    Console.WriteLine("No can do, reach max task number...  Pres any button to continue...");
+                    Console.ReadKey();
                     break;
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error! : " + e.Message + " Plz try again...");
-                }
         }
+        /// <summary>
+        /// Create task menu for task.
+        /// </summary>
+        /// <param name="mtask"></param>
         static void CreateTaskMenu(Task mtask)
         {
             while (true)
@@ -238,6 +291,9 @@ namespace TaskControlApp
                     Console.WriteLine("Error! : " + e.Message + " Plz try again...");
                 }
         }
+        /// <summary>
+        /// Create user.
+        /// </summary>
         static void CreateUserMenu()
         {
             while (true)
@@ -253,6 +309,10 @@ namespace TaskControlApp
                     Console.WriteLine("Error!: " + e.Message + " Plz try again...");
                 }
         }
+        /// <summary>
+        /// User management.
+        /// </summary>
+        /// <returns></returns>
         static ConsoleMenu UserManageMenu()
         {
             ConsoleMenu umm = new ConsoleMenu();
@@ -263,6 +323,7 @@ namespace TaskControlApp
                     Console.WriteLine("User Manager");
                 };
             });
+            // Create new user.
             umm.Add("Create new user", () =>
             {
                 CreateUserMenu();
@@ -270,6 +331,7 @@ namespace TaskControlApp
                 umm = UserManageMenu();
                 umm.Show();
             });
+            // Show every user.
             for (int i = 0; i < UsersList.Count; i++)
             {
                 User user = UsersList[i];
@@ -298,10 +360,14 @@ namespace TaskControlApp
                     um.Show();
                 });
             }
+            // Go back.
             umm.Add("Back", umm.CloseMenu);
             return umm;
         }
-
+        /// <summary>
+        /// Rename the certain project.
+        /// </summary>
+        /// <param name="prj"></param>
         static void RenameProjectMenu(Project prj)
         {
             while (true)
@@ -319,7 +385,14 @@ namespace TaskControlApp
                     Console.WriteLine("Error!: " + e.Message + " Plz try again...");
                 }
         }
-
+        /// <summary>
+        /// Refresh sub task menu after delete or add new task.
+        /// </summary>
+        /// <param name="task"></param>
+        /// <param name="mm"></param>
+        /// <param name="prj"></param>
+        /// <param name="chum"></param>
+        /// <returns></returns>
         static ConsoleMenu RefreshSubTaskMenu(Task task, ConsoleMenu mm, Project prj, ConsoleMenu chum)
         {
             ConsoleMenu um = new ConsoleMenu();
@@ -371,6 +444,16 @@ namespace TaskControlApp
             });
             return um;
         }
+        /// <summary>
+        /// Task menu.
+        /// </summary>
+        /// <param name="up"></param>
+        /// <param name="task"></param>
+        /// <param name="prj"></param>
+        /// <param name="mm"></param>
+        /// <param name="IsSubtask"></param>
+        /// <param name="mothertask"></param>
+        /// <returns></returns>
         static ConsoleMenu TaskMenu(ConsoleMenu up, Task task, Project prj, ConsoleMenu mm, bool IsSubtask, Task mothertask)
         {
             ConsoleMenu chum = new ConsoleMenu();
@@ -386,6 +469,7 @@ namespace TaskControlApp
                 {
                     RefreshSubTaskMenu(task, mm, prj, chum).Show();
                 });
+            // Add user to task.
             chum.Add("Add user to task", () =>
             {
                 ConsoleMenu um = new ConsoleMenu();
@@ -421,6 +505,7 @@ namespace TaskControlApp
                 um.Show();
 
             });
+            // Delete user from task.
             chum.Add("Delete user from task", () =>
             {
                 ConsoleMenu um = new ConsoleMenu();
@@ -447,6 +532,7 @@ namespace TaskControlApp
                 });
                 um.Show();
             });
+            // Change status.
             chum.Add("Change status", () =>
             {
                 ConsoleMenu um = new ConsoleMenu();
@@ -487,6 +573,7 @@ namespace TaskControlApp
                 });
                 um.Show();
             });
+            // Delete task.
             chum.Add("Delete this task", () =>
             {
                 if (IsSubtask)
@@ -502,12 +589,16 @@ namespace TaskControlApp
                     RefreshProjectMenu(mm, prj).Show();
                 }
             });
+            // Go back.
             chum.Add("Back", () =>
             {
                 up.Show();
             });
             return chum;
         }
+        /// <summary>
+        /// Create project menu.
+        /// </summary>
         static void CreatePorjectMenu()
         {
             while (true)

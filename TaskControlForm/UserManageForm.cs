@@ -12,6 +12,9 @@ namespace TaskControlForm
 {
     public partial class UserManageForm : Form
     {
+        /// <summary>
+        /// Initialize.
+        /// </summary>
         public UserManageForm()
         {
             InitializeComponent();
@@ -19,7 +22,11 @@ namespace TaskControlForm
             this.listBox1.Items.Clear();
             this.listBox1.Items.AddRange(Form1.UsersList.Select(e => e.Name).ToArray());
         }
-
+        /// <summary>
+        /// Create user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -35,12 +42,20 @@ namespace TaskControlForm
                 MessageBox.Show(er.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        /// <summary>
+        /// Save to the file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UserManageForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             saveProject.saveUserList(Form1.UsersList);
         }
-
+        /// <summary>
+        /// Delete user.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
             if (this.listBox1.SelectedItem == null)

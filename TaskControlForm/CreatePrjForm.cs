@@ -17,7 +17,11 @@ namespace TaskControlForm
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Save new project.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             if (this.textBox1.Text.Length == 0)
