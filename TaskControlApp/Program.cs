@@ -207,7 +207,7 @@ namespace TaskControlApp
         static void CreateTaskMenu(Project prj)
         {
             while (true)
-                if (prj.MaxTaskNumber < prj.TaskList.Count)
+                if (prj.MaxTaskNumber > prj.TaskList.Count)
                     try
                     {
                         string taskName = "";

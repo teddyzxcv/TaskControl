@@ -1,53 +1,15 @@
 <TaskControl>
   <ProjectList>
-    <Project Name="ted" MaxTaskNumber="11">
+    <Project Name="New1" MaxTaskNumber="11">
       <TaskList>
-        <Task Name="New" CreateTime="2021/2/21 15:10:48" Type="TaskTask" CurrentStatus="AtWork">
-          <UserList>
-            <User Name="ann" />
-          </UserList>
-          <SubTaskList />
-        </Task>
-        <Task Name="New1" CreateTime="2021/2/21 16:02:39" Type="BugTask" CurrentStatus="Default">
-          <UserList />
-          <SubTaskList />
-        </Task>
-        <Task Name="New2" CreateTime="2021/2/21 16:03:21" Type="TaskTask" CurrentStatus="EndWork">
-          <UserList />
-          <SubTaskList />
-        </Task>
-        <Task Name="Epic" CreateTime="2021/2/21 16:15:08" Type="EpicTask" CurrentStatus="Default">
-          <UserList />
-          <SubTaskList>
-            <Task Name="StoryTask" CreateTime="2021/2/21 16:15:23" Type="StoryTask" CurrentStatus="AtWork">
-              <UserList>
-                <User Name="ann" />
-              </UserList>
-              <SubTaskList />
-            </Task>
-            <Task Name="Task" CreateTime="2021/2/21 16:17:23" Type="TaskTask" CurrentStatus="EndWork">
-              <UserList />
-              <SubTaskList />
-            </Task>
-          </SubTaskList>
-        </Task>
-      </TaskList>
-    </Project>
-    <Project Name="prj" MaxTaskNumber="11">
-      <TaskList>
-        <Task Name="Task" CreateTime="2021/2/21 16:21:11" Type="TaskTask" CurrentStatus="EndWork">
+        <Task Name="Task1" CreateTime="2021/2/22 15:07:10" Type="TaskTask" CurrentStatus="AtWork">
           <UserList />
           <SubTaskList />
         </Task>
       </TaskList>
     </Project>
-    <Project Name="TEddd" MaxTaskNumber="1">
-      <TaskList>
-        <Task Name="task" CreateTime="2021/2/22 15:00:29" Type="TaskTask" CurrentStatus="Default">
-          <UserList />
-          <SubTaskList />
-        </Task>
-      </TaskList>
+    <Project Name="New2" MaxTaskNumber="11">
+      <TaskList />
     </Project>
   </ProjectList>
   <UserManageList>
